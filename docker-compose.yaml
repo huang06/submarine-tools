@@ -1,0 +1,30 @@
+---
+version: '3.8'
+services:
+  db:
+    build: .
+    image: submarine-test.io/testing/submarine-db:local
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    ports:
+      - 0.0.0.0:3306:3306
+    volumes:
+      - submarine-db:/var/lib/mysql
+  s3:
+    image: docker.io/minio/minio:RELEASE.2022-09-25T15-44-53Z
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      - MINIO_ROOT_USER=submarine_minio  # AWS_ACCESS_KEY_ID
+      - MINIO_ROOT_PASSWORD=submarine_minio  # AWS_SECRET_ACCESS_KEY
+    volumes:
+      - submarine-s3:/data
+    command:
+      - server
+      - /data
+      - --console-address
+      - :9001
+volumes:
+  submarine-db:
+  submarine-s3:
