@@ -13,13 +13,13 @@ client = boto3.client(
 
 bucket = "submarine"
 
-print("Upload files to S3")
+# upload file to S3
 with tempfile.TemporaryDirectory() as tmpdirname:
     file_path = Path(tmpdirname) / "testing.txt"
     with file_path.open("w") as file:
         file.write("123")
     client.upload_file(Filename=str(file_path), Bucket=bucket, Key="testing.txt")
 
-print("List objects on S3")
+# list files on S3
 for key in client.list_objects(Bucket="submarine")["Contents"]:
     print(key["Key"])
