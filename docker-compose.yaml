@@ -10,12 +10,13 @@ services:
       - 0.0.0.0:3306:3306
     volumes:
       - submarine-db:/var/lib/mysql
-  s3:
+  minio:
     image: docker.io/minio/minio:RELEASE.2022-09-25T15-44-53Z
     ports:
       - 9000:9000
       - 9001:9001
     environment:
+      - MINIO_DEFAULT_BUCKETS=submarine
       - MINIO_ROOT_USER=submarine_minio  # AWS_ACCESS_KEY_ID
       - MINIO_ROOT_PASSWORD=submarine_minio  # AWS_SECRET_ACCESS_KEY
     volumes:
@@ -25,6 +26,19 @@ services:
       - /data
       - --console-address
       - :9001
+  # https://github.com/minio/minio/issues/4769#issuecomment-320319655
+  createbuckets:
+    image: docker.io/minio/mc:RELEASE.2022-09-16T09-16-47Z
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config host add myminio http://minio:9000 submarine_minio submarine_minio;
+      /usr/bin/mc rm -r --force myminio/submarine;
+      /usr/bin/mc mb myminio/submarine;
+      /usr/bin/mc policy download myminio/submarine;
+      exit 0;
+      "
 volumes:
   submarine-db:
   submarine-s3:
