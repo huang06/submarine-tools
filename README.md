@@ -48,3 +48,5 @@ pytest tests -m 'e2e'
 ## References
 
 <https://github.com/apache/submarine/tree/master/dev-support/database>
+
+<https://github.com/apache/submarine/blob/master/.github/workflows/python.yml>
