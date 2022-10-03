@@ -32,6 +32,13 @@ pip install -r github-actions/test-requirements.txt
 pip install -e '.[tf2,pytorch]'
 ```
 
+Set CLI config for e2e test.
+
+```bash
+submarine config set connection.hostname localhost
+submarine config set connection.port 8080
+```
+
 Run tests.
 
 ```bash
