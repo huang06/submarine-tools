@@ -1,9 +1,9 @@
 ---
-version: '3.8'
+version: '3'  # optional since v1.27.0
 services:
   db:
     build: .
-    image: submarine-test.io/testing/submarine-db:local
+    image: myregistry.io/library/submarine-db:local
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw
     ports:
