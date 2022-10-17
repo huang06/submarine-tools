@@ -2,6 +2,10 @@
 
 This repo provides tools in order to speed up developing and testing.
 
+## Prerequisites
+
+- Exposing Submarine server to port 8080.
+
 ## Starting services
 
 ```bash
@@ -14,12 +18,6 @@ docker compose up -d
 ![db-schema](docs/db-schema.png)
 
 ## Running tests
-
-Expose Submarine service.
-
-```bash
-kubectl port-forward --address 0.0.0.0 -n default svc/submarine-server 8080:8080
-```
 
 Set up Python venv.
 
