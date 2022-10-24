@@ -16,7 +16,7 @@ services:
       - 9000:9000
       - 9001:9001
     environment:
-      - MINIO_DEFAULT_BUCKETS=submarine
+      # - MINIO_DEFAULT_BUCKETS=submarine  # It only work for bitnami/minio image
       - MINIO_ROOT_USER=submarine_minio  # AWS_ACCESS_KEY_ID
       - MINIO_ROOT_PASSWORD=submarine_minio  # AWS_SECRET_ACCESS_KEY
     volumes:
